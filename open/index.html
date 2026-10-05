@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Code Rank ML — Rank Booster</title>
+    <meta name="description" content="Code Rank ML adalah aplikasi Rank Booster Mobile Legends dengan sistem modern, cepat, dan mudah digunakan.">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #080b10;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* NAVBAR */
+        nav {
+            width: 100%;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(8, 11, 16, 0.92);
+            border-bottom: 1px solid #1b222c;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .logo span {
+            color: #4da3ff;
+        }
+
+        .nav-btn {
+            padding: 9px 17px;
+            border-radius: 8px;
+            background: #151c25;
+            border: 1px solid #26313e;
+            font-size: 13px;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 680px;
+            padding: 90px 7% 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: #087cff;
+            filter: blur(180px);
+            opacity: 0.12;
+            top: -150px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 7px 14px;
+            border-radius: 50px;
+            border: 1px solid #25415e;
+            background: #0d1722;
+            color: #6bb5ff;
+            font-size: 12px;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 8vw, 78px);
+            line-height: 1.05;
+            font-weight: 900;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 span {
+            color: #4da3ff;
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin: auto;
+            color: #9ca8b6;
+            font-size: 16px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 32px;
+        }
+
+        .btn {
+            padding: 14px 23px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 14px;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-download {
+            background: #2d8cff;
+            color: white;
+            box-shadow: 0 8px 30px rgba(45, 140, 255, 0.2);
+        }
+
+        .btn-dark {
+            background: #131a22;
+            border: 1px solid #26313d;
+            color: #dce5ee;
+        }
+
+        /* SECTION */
+        section {
+            padding: 85px 7%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-title h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #8793a1;
+            font-size: 14px;
+        }
+
+        /* FEATURES */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .card {
+            background: #0e1319;
+            border: 1px solid #1d2630;
+            border-radius: 15px;
+            padding: 27px;
+        }
+
+        .icon {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            background: #10243a;
+            color: #4da3ff;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            margin-bottom: 8px;
+            font-size: 17px;
+        }
+
+        .card p {
+            color: #8d99a6;
+            font-size: 13px;
+        }
+
+        /* INFO */
+        .info-box {
+            max-width: 1000px;
+            margin: auto;
+            background: #0e1319;
+            border: 1px solid #1d2630;
+            border-radius: 18px;
+            padding: 35px;
+        }
+
+        .info-box p {
+            color: #a0abb7;
+            margin-bottom: 15px;
+        }
+
+        .info-list {
+            margin-top: 20px;
+        }
+
+        .info-list div {
+            padding: 13px 0;
+            border-bottom: 1px solid #1b232d;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .info-list div:last-child {
+            border-bottom: none;
+        }
+
+        .info-list span:first-child {
+            color: #8995a2;
+        }
+
+        .info-list span:last-child {
+            font-weight: 700;
+            text-align: right;
+        }
+
+        /* DOWNLOAD */
+        .download {
+            text-align: center;
+        }
+
+        .download-box {
+            max-width: 850px;
+            margin: auto;
+            padding: 55px 25px;
+            background: linear-gradient(
+                145deg,
+                #101a26,
+                #0c1117
+            );
+            border: 1px solid #203044;
+            border-radius: 20px;
+        }
+
+        .download-box h2 {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .download-box p {
+            color: #8995a2;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        /* CONTACT */
+        .contact-grid {
+            max-width: 900px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .contact {
+            padding: 23px;
+            background: #0e1319;
+            border: 1px solid #1d2630;
+            border-radius: 14px;
+            text-align: center;
+            transition: 0.2s;
+        }
+
+        .contact:hover {
+            transform: translateY(-3px);
+            border-color: #31506e;
+        }
+
+        .contact strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .contact span {
+            color: #7f8b98;
+            font-size: 12px;
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid #1b222c;
+            padding: 30px 7%;
+            text-align: center;
+            color: #66717e;
+            font-size: 12px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 800px) {
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                min-height: 600px;
+                padding-top: 70px;
+            }
+
+            section {
+                padding: 65px 5%;
+            }
+
+            .info-list div {
+                flex-direction: column;
+                gap: 3px;
+            }
+
+            .info-list span:last-child {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+    <div class="logo">Code <span>Rank ML</span></div>
+
+    <a href="#download" class="nav-btn">
+        Download
+    </a>
+</nav>
+
+
+<!-- HERO -->
+<header class="hero">
+
+    <div class="hero-content">
+
+        <div class="badge">
+            MOBILE LEGENDS • RANK BOOSTER
+        </div>
+
+        <h1>
+            Code <span>Rank ML</span>
+        </h1>
+
+        <p>
+            Aplikasi Rank Booster untuk membantu mengelola dan meningkatkan
+            pengalaman push rank Mobile Legends dengan tampilan modern,
+            sederhana, dan mudah digunakan.
+        </p>
+
+        <div class="buttons">
+
+            <!-- GANTI LINK MEDIAFIRE -->
+            <a
+                href="https://www.mediafire.com/folder/tnx8kwunfaazg/等級碼+ML"
+                target="_blank"
+                class="btn btn-download"
+            >
+                ↓ &nbsp; Download Aplikasi
+            </a>
+
+            <a
+                href="#features"
+                class="btn btn-dark"
+            >
+                Lihat Fitur
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- FEATURES -->
+<section id="features">
+
+    <div class="section-title">
+
+        <h2>Fitur Code Rank ML</h2>
+
+        <p>
+            Dirancang dengan fokus pada kemudahan penggunaan.
+        </p>
+
+    </div>
+
+
+    <div class="features">
+
+        <div class="card">
+
+            <div class="icon">⚡</div>
+
+            <h3>Fast & Simple</h3>
+
+            <p>
+                Tampilan sederhana sehingga pengguna dapat mengakses
+                berbagai fungsi aplikasi dengan cepat.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">🛡</div>
+
+            <h3>Secure System</h3>
+
+            <p>
+                Sistem aplikasi dirancang dengan memperhatikan
+                keamanan dan validasi akses pengguna.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">📱</div>
+
+            <h3>Mobile Friendly</h3>
+
+            <p>
+                Dioptimalkan untuk digunakan pada perangkat Android
+                dengan tampilan yang nyaman.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">🚀</div>
+
+            <h3>Rank Booster</h3>
+
+            <p>
+                Dibuat untuk mendukung kebutuhan pengguna dalam
+                aktivitas push rank Mobile Legends.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">🔑</div>
+
+            <h3>Access System</h3>
+
+            <p>
+                Sistem akses dapat digunakan untuk mengatur
+                layanan dan fitur sesuai status pengguna.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">💬</div>
+
+            <h3>Community Support</h3>
+
+            <p>
+                Hubungi admin atau bergabung dengan group Telegram
+                untuk mendapatkan informasi terbaru.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ABOUT -->
+<section>
+
+    <div class="section-title">
+
+        <h2>Tentang Aplikasi</h2>
+
+        <p>
+            Informasi mengenai Code Rank ML
+        </p>
+
+    </div>
+
+
+    <div class="info-box">
+
+        <p>
+            <strong>Code Rank ML</strong> merupakan aplikasi yang
+            dikembangkan untuk menyediakan berbagai fungsi pendukung
+            aktivitas Rank Booster Mobile Legends dalam satu aplikasi.
+        </p>
+
+        <p>
+            Aplikasi ini memiliki sistem akses dan layanan yang dapat
+            diperbarui sesuai kebutuhan. Pastikan selalu menggunakan
+            versi aplikasi terbaru dari sumber resmi.
+        </p>
+
+
+        <div class="info-list">
+
+            <div>
+                <span>Nama Aplikasi</span>
+                <span>Code Rank ML</span>
+            </div>
+
+            <div>
+                <span>Platform</span>
+                <span>Android</span>
+            </div>
+
+            <div>
+                <span>Kategori</span>
+                <span>Rank Booster</span>
+            </div>
+
+            <div>
+                <span>Developer</span>
+                <span>Aim X Mod Team</span>
+            </div>
+
+            <div>
+                <span>Min SDK</span>
+                <span>Android 6+</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- DOWNLOAD -->
+<section id="download" class="download">
+
+    <div class="download-box">
+
+        <h2>Download Code Rank ML</h2>
+
+        <p>
+            Dapatkan aplikasi Code Rank ML melalui link download resmi.
+            Gunakan versi terbaru untuk mendapatkan fitur dan perbaikan
+            terbaru.
+        </p>
+
+        <div class="buttons">
+
+            <!-- GANTI LINK MEDIAFIRE -->
+            <a
+                href="https://www.mediafire.com/folder/tnx8kwunfaazg/等級碼+ML"
+                target="_blank"
+                class="btn btn-download"
+            >
+                ↓ &nbsp; Download via MediaFire
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CONTACT -->
+<section>
+
+    <div class="section-title">
+
+        <h2>Hubungi Kami</h2>
+
+        <p>
+            Butuh bantuan atau ingin mendapatkan informasi terbaru?
+        </p>
+
+    </div>
+
+
+    <div class="contact-grid">
+
+        <!-- GANTI NOMOR WHATSAPP -->
+        <a
+            href="https://wa.me/628131268516"
+            target="_blank"
+            class="contact"
+        >
+
+            <strong>WhatsApp Admin</strong>
+
+            <span>Chat langsung dengan admin</span>
+
+        </a>
+
+
+        <!-- GANTI LINK TELEGRAM ADMIN -->
+        <a
+            href="https://t.me/RixXze"
+            target="_blank"
+            class="contact"
+        >
+
+            <strong>Telegram Admin</strong>
+
+            <span>Hubungi admin melalui Telegram</span>
+
+        </a>
+
+
+        <!-- GANTI LINK GROUP TELEGRAM -->
+        <a
+            href="https://t.me/aimxmodmlbb"
+            target="_blank"
+            class="contact"
+        >
+
+            <strong>Telegram Group</strong>
+
+            <span>Bergabung dengan komunitas</span>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+
+    © 2026 Code AXM. All rights reserved.
+
+</footer>
+
+
+</body>
+      </html>
